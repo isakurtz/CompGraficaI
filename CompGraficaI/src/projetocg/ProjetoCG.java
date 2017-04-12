@@ -22,11 +22,32 @@ public class ProjetoCG {
         //ManipulacaoArquivos.readFile("C:\\Users\\PC\\Desktop\\Paths_D.txt");
        //ExemploImagem ei = new ExemploImagem();
        VideoDTO video = ManipulacaoArquivos.readFile("C:\\Users\\isadora_goncalves\\Downloads\\Paths_D.txt");
+       System.out.println(":::VIDEO 1:::");
        DetecPassBy detec = new DetecPassBy(video);
        DetecGroup detecg = new DetecGroup(video);
        detec.analize();
        detecg.analize();
-
+        video = ManipulacaoArquivos.readFile("C:\\Users\\isadora_goncalves\\Downloads\\Paths_D.txt");
+        System.out.println(":::VIDEO 2:::");
+        detec = new DetecPassBy(video);
+        detecg = new DetecGroup(video);
+        detec.analize();
+        detecg.analize();
+        
+        video = ManipulacaoArquivos.readFile("C:\\Users\\isadora_goncalves\\Downloads\\Paths_D.txt");
+        System.out.println(":::VIDEO 3:::");
+        detec = new DetecPassBy(video);
+        detecg = new DetecGroup(video);
+        detec.analize();
+        detecg.analize();
+        
+        video = ManipulacaoArquivos.readFile("C:\\Users\\isadora_goncalves\\Downloads\\Paths_D.txt");
+        System.out.println(":::VIDEO 4:::");
+        detec = new DetecPassBy(video);
+        detecg = new DetecGroup(video);
+        detec.analize();
+        detecg.analize();
+        
      // ManipulacaoArquivos.teste();
         
     }
