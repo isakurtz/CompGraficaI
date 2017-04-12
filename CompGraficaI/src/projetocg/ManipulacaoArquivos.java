@@ -118,7 +118,7 @@ public class ManipulacaoArquivos {
                             lista.add(Integer.parseInt(aux1[2])-1, new Frame());
                         }
                         lista.get(Integer.parseInt(aux1[2])-1).setPos(Integer.parseInt(aux1[0]), Integer.parseInt(aux1[1]), pessoa);
-                        //System.out.println("erro");
+                       // System.out.println(Integer.parseInt(aux1[0])+ " "+ Integer.parseInt(aux1[1]) +" "+ Integer.parseInt(aux1[2]) + " " + pessoa + " " + i);
                     }
                     //lista.add(allMatches);
                 }
