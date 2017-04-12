@@ -22,7 +22,9 @@ public class ProjetoCG {
         //ManipulacaoArquivos.readFile("C:\\Users\\PC\\Desktop\\Paths_D.txt");
        VideoDTO video = ManipulacaoArquivos.readFile("C:\\Users\\PC\\Desktop\\Paths_D1.txt");
        DetecPassBy detec = new DetecPassBy(video);
+       DetecGroup detecg = new DetecGroup(video);
        detec.analize();
+       detecg.analize();
 
      // ManipulacaoArquivos.teste();
         
