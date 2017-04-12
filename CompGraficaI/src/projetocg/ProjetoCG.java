@@ -20,7 +20,8 @@ public class ProjetoCG {
         //	dados = ManipulacaoArquivos.leArquivo("C:\\Paths_D.csv");
         //ArrayList<ArrayList<String>> leArq = ManipulacaoArquivos.leArquivo("C:\\Users\\Marina\\Desktop\\teste.txt");
         //ManipulacaoArquivos.readFile("C:\\Users\\PC\\Desktop\\Paths_D.txt");
-       VideoDTO video = ManipulacaoArquivos.readFile("C:\\Users\\PC\\Desktop\\Paths_D1.txt");
+       //ExemploImagem ei = new ExemploImagem();
+       VideoDTO video = ManipulacaoArquivos.readFile("C:\\Users\\isadora_goncalves\\Downloads\\Paths_D.txt");
        DetecPassBy detec = new DetecPassBy(video);
        DetecGroup detecg = new DetecGroup(video);
        detec.analize();

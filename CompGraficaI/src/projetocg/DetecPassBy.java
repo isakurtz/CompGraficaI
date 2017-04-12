@@ -26,7 +26,7 @@ public class DetecPassBy {
     }
 
     public void analize() {
-        range = 0.5 * prop; // quantos metros eu considero dentro do range de duas pessoas proximas
+        range = 0.8 * prop; // quantos metros eu considero dentro do range de duas pessoas proximas
         boolean pass = false;
         int time = 0;
 
