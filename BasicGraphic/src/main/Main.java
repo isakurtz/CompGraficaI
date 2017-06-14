@@ -17,7 +17,9 @@ public class Main {
     private static final int FPS = 60;
     
     public static void main(String[] args) {
-        final GLProfile profile = GLProfile.get(GLProfile.GL4);
+        
+       
+        final GLProfile profile = GLProfile.get(GLProfile.GL2);
         GLCapabilities capabilities = new GLCapabilities(profile);
         capabilities.setDoubleBuffered(true);
         capabilities.setHardwareAccelerated(true);
