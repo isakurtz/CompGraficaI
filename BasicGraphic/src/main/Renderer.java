@@ -10,10 +10,12 @@ import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
+import handler.ShaderHandler;
 
 
 public class Renderer implements GLEventListener{
 
+    
     public Renderer() {
     }
 
@@ -22,6 +24,19 @@ public class Renderer implements GLEventListener{
     public void init(GLAutoDrawable drawable) {
         //final GL4 gl = drawable.getGL().getGL4();
         final GL2 gl = drawable.getGL().getGL2();
+        
+        //create shader objects 
+        int vertexShader = ShaderHandler.createShader("shaders/vertex_shader.glsl", GL2.GL_VERTEX_SHADER,gl);
+        int fragmentShader = ShaderHandler.createShader("shaders/vertex_shader.glsl", GL2.GL_VERTEX_SHADER,gl);
+        
+        int[] shaderList = {vertexShader, fragmentShader};
+        
+        int programHandle = ShaderHandler.createProgram(shaderList, gl);
+        
+        final int VERTEX_POSITION_INDEX = 0;
+        final int VERTEX_COLOR_INDEX = 1;
+        
+        
     }
 
     @Override
