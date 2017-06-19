@@ -18,17 +18,19 @@ public class Triangle extends Shape {
     };
     
     private float[] colorData = {
-        
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
     };
     
     @Override
     public float[] getPositionData() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.positionData;
     }
 
     @Override
     public float[] getColorData() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.colorData;
     }
     
 }

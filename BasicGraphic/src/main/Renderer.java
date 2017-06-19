@@ -10,12 +10,14 @@ import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
+import handler.BufferHandler;
 import handler.ShaderHandler;
+import shapes.Triangle;
 
 
 public class Renderer implements GLEventListener{
 
-    
+    private int[] triangleVaoHandle = new int[1];
     public Renderer() {
     }
 
@@ -36,6 +38,13 @@ public class Renderer implements GLEventListener{
         final int VERTEX_POSITION_INDEX = 0;
         final int VERTEX_COLOR_INDEX = 1;
         
+        Triangle triangle = new Triangle();
+        BufferHandler.setupBuffers(triangleVaoHandle, triangle.getPositionData(), triangle.getColorData(), VERTEX_POSITION_INDEX, VERTEX_COLOR_INDEX, gl);
+        
+        ShaderHandler.linkProgram(programHandle, gl);
+        
+        gl.glUseProgram(programHandle);
+        
         
     }
 
@@ -49,6 +58,11 @@ public class Renderer implements GLEventListener{
     public void display(GLAutoDrawable drawable) {
         //final GL4 gl = drawable.getGL().getGL4();
         final GL2 gl = drawable.getGL().getGL2();
+        
+        gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
+        gl.glBindVertexArray(triangleVaoHandle[0]);
+        gl.glDrawArrays(GL2.GL_TRIANGLES, 0, 3);
+        gl.glFlush();
 
     }
 
