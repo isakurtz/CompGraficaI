@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         
        
-        final GLProfile profile = GLProfile.get(GLProfile.GL2);
+        final GLProfile profile = GLProfile.get(GLProfile.GL4);
         GLCapabilities capabilities = new GLCapabilities(profile);
         capabilities.setDoubleBuffered(true);
         capabilities.setHardwareAccelerated(true);

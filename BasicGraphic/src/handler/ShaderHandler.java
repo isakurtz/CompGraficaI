@@ -5,7 +5,7 @@
  */
 package handler;
 
-import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GL4;
 
 
 /**
@@ -13,7 +13,7 @@ import com.jogamp.opengl.GL2;
  * @author Isadora_Goncalves
  */
 public class ShaderHandler {
-    public static int createShader(String shaderPath, int shaderType, GL2 gl){
+    public static int createShader(String shaderPath, int shaderType, GL4 gl){
         //create sahder objecgt
         
         int shader = gl.glCreateShader(shaderType);
@@ -35,13 +35,13 @@ public class ShaderHandler {
         //verify shader compiled succesfuly
         
         int result[] = new int[1];
-        gl.glGetShaderiv(shader, GL2.GL_COMPILE_STATUS, result, 0);
+        gl.glGetShaderiv(shader, GL4.GL_COMPILE_STATUS, result, 0);
         
-        if(result[0] == GL2.GL_FALSE){
+        if(result[0] == GL4.GL_FALSE){
             System.err.println("Shader compilatin failde" + shaderPath);
             
             int logLenght[] = new int[1];
-            gl.glGetShaderiv(shader, GL2.GL_INFO_LOG_LENGTH, logLenght, 0);
+            gl.glGetShaderiv(shader, GL4.GL_INFO_LOG_LENGTH, logLenght, 0);
             if(logLenght[0] > 0 ){
                 byte[] log = new byte[logLenght[0]];
                 gl.glGetShaderInfoLog(shader, logLenght[0], (int[]) null , 0, log, 0);
@@ -52,7 +52,7 @@ public class ShaderHandler {
         return  shader;
     }
     
-    public static int createProgram(int shaderList[], GL2 gl){
+    public static int createProgram(int shaderList[], GL4 gl){
         int programHandle = gl.glCreateProgram();
         
         if(programHandle == 0){
@@ -67,15 +67,15 @@ public class ShaderHandler {
         return programHandle;
     }
     
-    public static void linkProgram( int programHandle, GL2 gl){
+    public static void linkProgram( int programHandle, GL4 gl){
         gl.glLinkProgram(programHandle);
         
         int status[] = new int[1];
-        gl.glGetProgramiv(programHandle, GL2.GL_LINK_STATUS, status, 0);
-        if(status[0] == GL2.GL_FALSE){
+        gl.glGetProgramiv(programHandle, GL4.GL_LINK_STATUS, status, 0);
+        if(status[0] == GL4.GL_FALSE){
             System.err.println("Failde to link shaner progrma");
             int logLength[] = new int[1];
-            gl.glGetProgramiv(programHandle, GL2.GL_INFO_LOG_LENGTH, logLength, 0);
+            gl.glGetProgramiv(programHandle, GL4.GL_INFO_LOG_LENGTH, logLength, 0);
             
             if (logLength[0]>1) {
                 byte[] log = new byte[logLength[0]];

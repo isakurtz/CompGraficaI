@@ -7,7 +7,7 @@
 package main;
 
 import com.jogamp.opengl.GL4;
-import com.jogamp.opengl.GL2;
+//import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 import handler.BufferHandler;
@@ -25,11 +25,11 @@ public class Renderer implements GLEventListener{
     @Override
     public void init(GLAutoDrawable drawable) {
         //final GL4 gl = drawable.getGL().getGL4();
-        final GL2 gl = drawable.getGL().getGL2();
+        final GL4 gl = drawable.getGL().getGL4();
         
         //create shader objects 
-        int vertexShader = ShaderHandler.createShader("shaders/vertex_shader.glsl", GL2.GL_VERTEX_SHADER,gl);
-        int fragmentShader = ShaderHandler.createShader("shaders/vertex_shader.glsl", GL2.GL_VERTEX_SHADER,gl);
+        int vertexShader = ShaderHandler.createShader("shaders/vertex_shader.glsl", GL4.GL_VERTEX_SHADER,gl);
+        int fragmentShader = ShaderHandler.createShader("shaders/Fragment_shader.glsl", GL4.GL_FRAGMENT_SHADER,gl);
         
         int[] shaderList = {vertexShader, fragmentShader};
         
@@ -51,25 +51,25 @@ public class Renderer implements GLEventListener{
     @Override
     public void dispose(GLAutoDrawable drawable) {
         //final GL4 gl = drawable.getGL().getGL4();
-        final GL2 gl = drawable.getGL().getGL2();
+        final GL4 gl = drawable.getGL().getGL4();
     }
 
     @Override
     public void display(GLAutoDrawable drawable) {
         //final GL4 gl = drawable.getGL().getGL4();
-        final GL2 gl = drawable.getGL().getGL2();
+        final GL4 gl = drawable.getGL().getGL4();
         
-        gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
+        gl.glClear(GL4.GL_COLOR_BUFFER_BIT);
         gl.glBindVertexArray(triangleVaoHandle[0]);
-        gl.glDrawArrays(GL2.GL_TRIANGLES, 0, 3);
+        gl.glDrawArrays(GL4.GL_TRIANGLES, 0, 3);
         gl.glFlush();
 
     }
 
     @Override
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-      //final GL4 gl = drawable.getGL().getGL4();
-        final GL2 gl = drawable.getGL().getGL2();
+        final GL4 gl = drawable.getGL().getGL4();
+       // final GL4 gl = drawable.getGL().getGL2();
 
     }
     

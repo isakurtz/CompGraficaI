@@ -6,7 +6,10 @@
 package handler;
 
 import com.jogamp.common.nio.Buffers;
-import com.jogamp.opengl.GL2;
+//import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GL4;
+
+
 import java.nio.FloatBuffer;
 
 /**
@@ -14,7 +17,7 @@ import java.nio.FloatBuffer;
  * @author Isadora_Goncalves
  */
 public class BufferHandler {
-    public static void setupBuffers(int[] objectVaoHandle, float[] positionData, float[] colorData, final int vertexPositionIndex, final int colorPsitionIndex, GL2 gl ){
+    public static void setupBuffers(int[] objectVaoHandle, float[] positionData, float[] colorData, final int vertexPositionIndex, final int colorPsitionIndex, GL4 gl ){
         //Create the buffer objets        
         int vboHandles[] = new int[2];
         gl.glGenBuffers(2, vboHandles, 0);
@@ -23,16 +26,16 @@ public class BufferHandler {
         //Assign the handles to descriptive vars        
         int positionBufferHandle = vboHandles[0];
         int colorBufferHandle = vboHandles[1];
-        gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, positionBufferHandle);
+        gl.glBindBuffer(GL4.GL_ARRAY_BUFFER, positionBufferHandle);
         FloatBuffer positionBufferData = Buffers.newDirectFloatBuffer(positionData);
         int numBytes = positionData.length * 4;
-        gl.glBufferData(GL2.GL_ARRAY_BUFFER, numBytes, positionBufferData, GL2.GL_STATIC_DRAW);
+        gl.glBufferData(GL4.GL_ARRAY_BUFFER, numBytes, positionBufferData, GL4.GL_STATIC_DRAW);
         
         //Populate the color buffer
-        gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, colorBufferHandle);
+        gl.glBindBuffer(GL4.GL_ARRAY_BUFFER, colorBufferHandle);
         FloatBuffer colorBufferData = Buffers.newDirectFloatBuffer(colorData);
         numBytes = colorData.length *4;
-        gl.glBufferData(GL2.GL_ARRAY_BUFFER, numBytes, colorBufferData, GL2.GL_STATIC_DRAW);
+        gl.glBufferData(GL4.GL_ARRAY_BUFFER, numBytes, colorBufferData, GL4.GL_STATIC_DRAW);
         
         //Create and set up the new vertex array objetc
         gl.glGenBuffers(1, objectVaoHandle, 0);
@@ -43,12 +46,12 @@ public class BufferHandler {
         gl.glEnableVertexAttribArray(colorPsitionIndex);
         
         //Map Index 0 to the position buffer
-        gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, positionBufferHandle);
-        gl.glVertexAttribPointer(vertexPositionIndex, 3, GL2.GL_FLOAT, Boolean.FALSE, 0 , 0 );
+        gl.glBindBuffer(GL4.GL_ARRAY_BUFFER, positionBufferHandle);
+        gl.glVertexAttribPointer(vertexPositionIndex, 3, GL4.GL_FLOAT, Boolean.FALSE, 0 , 0 );
         
         //Map index 1 to the color buffer
-        gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, colorBufferHandle);
-         gl.glVertexAttribPointer(colorPsitionIndex, 3, GL2.GL_FLOAT, Boolean.FALSE, 0 , 0 );
+        gl.glBindBuffer(GL4.GL_ARRAY_BUFFER, colorBufferHandle);
+         gl.glVertexAttribPointer(colorPsitionIndex, 3, GL4.GL_FLOAT, Boolean.FALSE, 0 , 0 );
         
         
     }
