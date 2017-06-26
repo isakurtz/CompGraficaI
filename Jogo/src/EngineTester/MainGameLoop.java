@@ -5,13 +5,19 @@
  */
 package EngineTester;
 
+import entities.Camera;
+import entities.Entity;
+import entities.Light;
+import java.util.ArrayList;
+import java.util.List;
 import main.DisplayManager;
 import main.Loader;
+import main.MasterRenderer;
+import main.OBJLoader;
 import models.RawModel;
-import main.Render;
 import models.TextureModel;
 import org.lwjgl.opengl.Display;
-import shaders.StaticShader;
+import org.lwjgl.util.vector.Vector3f;
 import textures.ModelTexture;
 
 /**
@@ -23,41 +29,38 @@ public class MainGameLoop {
     public static void main(String[] args) {
         DisplayManager.createDisplay();
         Loader loader = new Loader();
-        Render renderer = new Render();
-        StaticShader shader = new StaticShader();
+       
 
-        float[] vertices = {
-            -0.5f, 0.5f, 0,
-            -0.5f, -0.5f, 0,
-            0.5f, -0.5f, 0,
-            0.5f, 0.5f, 0
-        };
+        
 
-        int[] indices = {
-            0, 1, 3,
-            3, 1, 2
-        };
-
-        float[] textureCoords = {
-            0, 0,
-            0, 1,
-            1, 1,
-            1, 0
-        };
-
-        RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
-        ModelTexture texture = new ModelTexture(loader.loadTexture("datboi"));
-        TextureModel textureModel = new TextureModel(model, texture);
-
+        RawModel model = OBJLoader.loadObjModel("dragon", loader);
+        
+        TextureModel textureModel = new TextureModel(model, new ModelTexture(loader.loadTexture("green")));
+        
+        ModelTexture texture = textureModel.getTexture();
+        texture.setShineDamper(10);
+        texture.setReflectivity(1);
+        List<Entity> allEntities = new ArrayList<>();
+        Entity entity = new Entity(textureModel, new Vector3f(0, 0, -25), 0, 0, 0, 1);
+        
+        allEntities.add(entity);
+        Light light = new Light(new Vector3f(200,200,100), new Vector3f(1,1,1));
+        Camera camera = new Camera();
+        
+         MasterRenderer renderer = new MasterRenderer();
+         
         while (!Display.isCloseRequested()) {
-            renderer.prepare();
-            shader.start();
+            //entity.increaseRotation(0, 1, 0);
+            //entity.increasePosition(0, 0, -0.002f);
+            camera.move();  
+            for(Entity ent : allEntities){
+                renderer.processEntity(ent);
+            }
             //game logic 
-            renderer.render(textureModel);
-            shader.stop();
+            renderer.render(light, camera);
             DisplayManager.updateDisplay();
         }
-        shader.cleanUp();
+        renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
     }
