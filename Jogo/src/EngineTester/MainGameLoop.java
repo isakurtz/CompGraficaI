@@ -8,6 +8,8 @@ package EngineTester;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
+import guis.GuiRenderer;
+import guis.GuiTexture;
 import java.util.ArrayList;
 import java.util.List;
 import main.DisplayManager;
@@ -17,6 +19,7 @@ import main.OBJLoader;
 import models.RawModel;
 import models.TextureModel;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import terrains.Terrain;
 import textures.ModelTexture;
@@ -49,6 +52,12 @@ public class MainGameLoop {
         
         Camera camera = new Camera();
 
+        List<GuiTexture> guis = new ArrayList<>();
+        GuiTexture gui = new GuiTexture(loader.loadTexture("socuwan"),new Vector2f(0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
+        guis.add(gui);
+        
+        GuiRenderer guiRenderer = new GuiRenderer(loader);
+        
         MasterRenderer renderer = new MasterRenderer();
 
         while (!Display.isCloseRequested()) {
@@ -63,6 +72,7 @@ public class MainGameLoop {
             }
             //game logic 
             renderer.render(light, camera);
+            guiRenderer.render(guis);
             DisplayManager.updateDisplay();
         }
         renderer.cleanUp();
