@@ -53,8 +53,8 @@ public class MainGameLoop {
         allEntities.add(entity);
         Light light = new Light(new Vector3f(100, 100, 100), new Vector3f(1, 1, 1));
         
-        Terrain terrain = new Terrain(-1,-1,loader,new ModelTexture(loader.loadTexture("jimmy-malachier-tile-stone-floor-01")));
-        Terrain terrain2 = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("jimmy-malachier-tile-stone-floor-01")));
+        Terrain terrain = new Terrain(-1,-1,loader,new ModelTexture(loader.loadTexture("floorTex")));
+        Terrain terrain2 = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("floorTex")));
         
         Camera camera = new Camera();
 
@@ -67,17 +67,17 @@ public class MainGameLoop {
         MasterRenderer renderer = new MasterRenderer();
 
         Player player = new Player(textureModel, new Vector3f(0, 50, -50), 0,0,0,1);
-        Enemy enem = new Enemy(textureModel, new Vector3f(0, 50, -50), 0,0,0,1, ManipulacaoArquivos.readFile("C:\\Users\\PC\\Desktop\\Paths_D.txt").getPaths().get(3));
+        //Enemy enem = new Enemy(textureModel, new Vector3f(0, 50, -50), 0,0,0,1, ManipulacaoArquivos.readFile("C:\\Users\\PC\\Desktop\\Paths_D.txt").getPaths().get(3));
        
         while (!Display.isCloseRequested()) {
             //entity.increaseRotation(0, 1, 0);
             //entity.increasePosition(0, 0, -0.002f);
             camera.move();
             //player.move();
-            enem.move();
+            //enem.move();
             renderer.processTerrain(terrain);
             renderer.processTerrain(terrain2);
-            renderer.processEntity(enem);
+            //renderer.processEntity(enem);
             for (Entity ent : allEntities) {
                 //ent.increasePosition(0, 0, 0);
                 //ent.increaseRotation(0, 1, 0);
@@ -85,7 +85,7 @@ public class MainGameLoop {
             }
             //game logic 
             renderer.render(light, camera);
-            guiRenderer.render(guis);
+           guiRenderer.render(guis);
             DisplayManager.updateDisplay();
         }
         guiRenderer.cleanUp();
