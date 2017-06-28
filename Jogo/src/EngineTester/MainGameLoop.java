@@ -70,7 +70,7 @@ public class MainGameLoop {
         }
 
         //flowers.add(new Entity(flowerTextModel, new Vector3f(0, 50, -25), 0, 0, 0, 0.1f, flower.getFurthestPoint()));
-        VideoDTO video = ManipulacaoArquivos.readFile("C:\\Users\\isadorag\\Documents\\NetBeansProjects\\CompGraficaI\\Jogo\\paths\\Japan_D.txt");
+        VideoDTO video = ManipulacaoArquivos.readFile("paths\\Br8_D.txt");
 
         for (int i = 0; i < video.getPessoas(); i++) {
             enemies.add(new Enemy(robotoTextureModel, new Vector3f(rand.nextFloat() * (maxX - minX) + minX, 5, rand.nextFloat() * (maxZ - minZ) + minZ), 0, 0, 0, 0.3f, flower.getFurthestPoint(), video.getPaths().get(i)));
@@ -134,7 +134,7 @@ public class MainGameLoop {
                 }
             }
             renderer.processEntity(player);
-
+            camera.move();
             renderer.render(light, camera);
             if (loose) {
                 guiRenderer.render(guiOver);
