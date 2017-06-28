@@ -6,7 +6,9 @@
 
 package projetocg;
 
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,11 +18,13 @@ public class VideoDTO {
     private int proportion;
     private int pessoas;
     private ArrayList<Frame> frames;
+    private List<List<Point>> paths;
 
-    public VideoDTO(int proportion, ArrayList<Frame> frames, int pessoas) {
+    public VideoDTO(int proportion, ArrayList<Frame> frames, int pessoas, List<List<Point>> paths) {
         this.proportion = proportion;
         this.frames = frames;
         this.pessoas = pessoas;
+        this.paths = paths;
     }
 
     public int getProportion() {
@@ -42,5 +46,13 @@ public class VideoDTO {
     public void setPositions(ArrayList<Frame> frames) {
         this.frames = frames;
     }    
+
+    public List<List<Point>> getPaths() {
+        return paths;
+    }
+
+    public void setPaths(List<List<Point>> paths) {
+        this.paths = paths;
+    }
     
 }

@@ -92,6 +92,9 @@ public class ManipulacaoArquivos {
         System.out.println(i);
 
     }
+    
+    
+    
 
     public static VideoDTO readFile(String arquivo) {
         ArrayList<Frame> lista = new ArrayList<>(Collections.nCopies(1, null));      
@@ -99,6 +102,8 @@ public class ManipulacaoArquivos {
         int pessoa = 0;
         int proportion = 0;
         int frames;
+        ArrayList<List<Point>> paths = new ArrayList<>();
+        ArrayList<Point> path;
         try (FileReader fr = new FileReader(new File(arquivo)); BufferedReader buff = new BufferedReader(fr)) {
 
             String linha = buff.readLine();
@@ -111,23 +116,27 @@ public class ManipulacaoArquivos {
                     frames = Integer.parseInt(aux[0]);
                     Pattern pat = Pattern.compile("([0-9]+,?)+");
                     Matcher mat = pat.matcher(aux[1]);
-
+                    path = new ArrayList<>();
                     for (int i = 0; i < frames; i++) {
                         mat.find();
                         String aux1[] = mat.group().split(",");
+                       
+                        path.add(new Point(Integer.parseInt(aux1[0]), Integer.parseInt(aux1[1])));
                         if(lista.get(Integer.parseInt(aux1[2])-1) == null){
                             lista.add(Integer.parseInt(aux1[2])-1, new Frame());
                         }
                         lista.get(Integer.parseInt(aux1[2])-1).setPos(Integer.parseInt(aux1[0]), Integer.parseInt(aux1[1]), pessoa);
                        // System.out.println(Integer.parseInt(aux1[0])+ " "+ Integer.parseInt(aux1[1]) +" "+ Integer.parseInt(aux1[2]) + " " + pessoa + " " + i);
                     }
+                    paths.add(path);
                     //lista.add(allMatches);
                 }
+                path = null;
                 linha = buff.readLine();
                 
             }
             lista.remove(lista.size()-1);
-            return new VideoDTO(proportion, lista, pessoa);
+            return new VideoDTO(proportion, lista, pessoa, paths);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
