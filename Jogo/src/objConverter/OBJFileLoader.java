@@ -16,6 +16,13 @@ public class OBJFileLoader {
     private static final String RES_LOC = "res/";
  
     public static ModelData loadOBJ(String objFileName) {
+//        float xMax = Float.MIN_VALUE;
+//        float xMin = Float.MAX_VALUE;
+//        float yMax = Float.MIN_VALUE;
+//        float yMin = Float.MAX_VALUE;
+//        float zMax = Float.MIN_VALUE;
+//        float zMin= Float.MAX_VALUE;
+//        
         FileReader isr = null;
         File objFile = new File(RES_LOC + objFileName + ".obj");
         try {
@@ -34,9 +41,20 @@ public class OBJFileLoader {
                 line = reader.readLine();
                 if (line.startsWith("v ")) {
                     String[] currentLine = line.split(" ");
-                    Vector3f vertex = new Vector3f((float) Float.valueOf(currentLine[1]),
-                            (float) Float.valueOf(currentLine[2]),
-                            (float) Float.valueOf(currentLine[3]));
+                    float x = Float.valueOf(currentLine[1]);
+                    float y = Float.valueOf(currentLine[2]);
+                    float z = Float.valueOf(currentLine[3]);
+                    
+//                    if(x > xMax) xMax = x;
+//                    else if(x < xMin ) xMin = x;
+//                    
+//                    if(y > yMax) yMax = y;
+//                    else if(y < yMin) yMin= y;
+//                    
+//                    if(z > zMax)zMax = z;
+//                    else if(z< zMin) zMin = z; 
+                    
+                    Vector3f vertex = new Vector3f(x, y, z);
                     Vertex newVertex = new Vertex(vertices.size(), vertex);
                     vertices.add(newVertex);
  

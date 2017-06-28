@@ -23,8 +23,8 @@ public class Player extends Entity {
     private float currentSpeed = 0;
     private float currentTurnSpeed = 0;
 
-    public Player(TextureModel model, Vector3f position, float rotx, float roty, float rotz, float scale) {
-        super(model, position, rotx, roty, rotz, scale);
+    public Player(TextureModel model, Vector3f position, float rotx, float roty, float rotz, float scale, float furthestPoint) {
+        super(model, position, rotx, roty, rotz, scale, furthestPoint);
     }
 
     public void move() {
@@ -52,5 +52,14 @@ public class Player extends Entity {
         } else {
             this.currentTurnSpeed = 0;
         }
+    }
+    
+    public boolean isColliding(Entity ent){
+        // d = sqrt((X1-X2)² + (Y1-Y2)² + (Z1-Z2)²). So, if D<(R1+R2), 
+        float powX = (float) Math.pow(super.getPosition().x - ent.getPosition().x, 2);
+        float powY = (float) Math.pow(super.getPosition().y - ent.getPosition().y, 2);
+        float powZ = (float) Math.pow(super.getPosition().z - ent.getPosition().z, 2);
+        float dist = (float) Math.sqrt(powX+powY+powZ);
+        return dist < super.getFurthestPoint() + ent.getFurthestPoint();
     }
 }

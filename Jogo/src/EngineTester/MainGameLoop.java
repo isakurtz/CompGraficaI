@@ -38,19 +38,21 @@ public class MainGameLoop {
 
     public static void main(String[] args) {
         DisplayManager.createDisplay();
-        Loader loader = new Loader();
-        ModelData data = OBJFileLoader.loadOBJ("emerald");
-        RawModel model = loader.loadToVAO(data.getVertices(), data.getTextureCoords(), data.getNormals(), data.getIndices());
-
-        TextureModel textureModel = new TextureModel(model, new ModelTexture(loader.loadTexture("gem2")));
-
-        ModelTexture texture = textureModel.getTexture();
-        texture.setShineDamper(1);
-        texture.setReflectivity(0);
+        Loader loader = new Loader();          
         List<Entity> allEntities = new ArrayList<>();
-        Entity entity = new Entity(textureModel, new Vector3f(0, 0, -25), 0, 0, 0,1);
-
-        allEntities.add(entity);
+        
+        ModelData flower = OBJFileLoader.loadOBJ("emerald");
+        RawModel flowerModel = loader.loadToVAO(flower.getVertices(), flower.getTextureCoords(), flower.getNormals(), flower.getIndices());
+        TextureModel flowerTextModel = new TextureModel(flowerModel, new ModelTexture(loader.loadTexture("gem2")));
+        //ModelTexture flowerTex = flowerTextModel.getTexture();
+                    
+        
+        allEntities.add(new Entity(flowerTextModel, new Vector3f(0, 0, -25), 0, 0, 0,1 , flower.getFurthestPoint()));
+        
+        
+        Player player = new Player(flowerTextModel, new Vector3f(0, 50, -50), 0,0,0,1, flower.getFurthestPoint());
+        Enemy enem = new Enemy(flowerTextModel, new Vector3f(0, 50, -50), 0,0,0,1, flower.getFurthestPoint(),ManipulacaoArquivos.readFile("C:\\Users\\PC\\Desktop\\Paths_D.txt").getPaths().get(3));
+        
         Light light = new Light(new Vector3f(100, 100, 100), new Vector3f(1, 1, 1));
         
         Terrain terrain = new Terrain(-1,-1,loader,new ModelTexture(loader.loadTexture("floorTex")));
@@ -59,25 +61,27 @@ public class MainGameLoop {
         Camera camera = new Camera();
 
         List<GuiTexture> guis = new ArrayList<>();
-        GuiTexture gui = new GuiTexture(loader.loadTexture("won"),new Vector2f(0.0f, 0.0f), new Vector2f(0.8f, 0.8f));
-        guis.add(gui);
+        GuiTexture guiWon = new GuiTexture(loader.loadTexture("won"),new Vector2f(0.0f, 0.0f), new Vector2f(0.8f, 0.8f));
+        GuiTexture guiOver = new GuiTexture(loader.loadTexture("over"),new Vector2f(0.0f, 0.0f), new Vector2f(0.8f, 0.8f));
+        guis.add(guiWon);
+        guis.add(guiOver);
         
-        GuiRenderer guiRenderer = new GuiRenderer(loader);
         
+        
+        GuiRenderer guiRenderer = new GuiRenderer(loader);        
         MasterRenderer renderer = new MasterRenderer();
 
-        Player player = new Player(textureModel, new Vector3f(0, 50, -50), 0,0,0,1);
-        //Enemy enem = new Enemy(textureModel, new Vector3f(0, 50, -50), 0,0,0,1, ManipulacaoArquivos.readFile("C:\\Users\\PC\\Desktop\\Paths_D.txt").getPaths().get(3));
+        
        
         while (!Display.isCloseRequested()) {
             //entity.increaseRotation(0, 1, 0);
             //entity.increasePosition(0, 0, -0.002f);
             camera.move();
             //player.move();
-            //enem.move();
+            enem.move();
             renderer.processTerrain(terrain);
             renderer.processTerrain(terrain2);
-            //renderer.processEntity(enem);
+            renderer.processEntity(enem);
             for (Entity ent : allEntities) {
                 //ent.increasePosition(0, 0, 0);
                 //ent.increaseRotation(0, 1, 0);
@@ -85,7 +89,7 @@ public class MainGameLoop {
             }
             //game logic 
             renderer.render(light, camera);
-           guiRenderer.render(guis);
+            guiRenderer.render(guis);
             DisplayManager.updateDisplay();
         }
         guiRenderer.cleanUp();

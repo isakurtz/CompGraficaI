@@ -18,14 +18,23 @@ public class Entity {
     private Vector3f position;
     private float rotx, roty, rotz;
     private float scale;
-
-    public Entity(TextureModel model, Vector3f position, float rotx, float roty, float rotz, float scale) {
+    private float furthestPoint;
+    private float xMax;
+    private float xMin;
+    private float yMax;
+    private float yMin;
+    private float zMax;
+    private float zMin;  
+   
+    
+    public Entity(TextureModel model, Vector3f position, float rotx, float roty, float rotz, float scale, float furthestPoint) {
         this.model = model;
         this.position = position;
         this.rotx = rotx;
         this.roty = roty;
         this.rotz = rotz;
         this.scale = scale;
+        this.furthestPoint = furthestPoint * scale;
     }
 
     public void increasePosition(float dx, float dy, float dz){
@@ -44,6 +53,11 @@ public class Entity {
         return model;
     }
 
+    public float getFurthestPoint() {
+        return furthestPoint;
+    }
+
+    
     public void setModel(TextureModel model) {
         this.model = model;
     }

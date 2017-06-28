@@ -29,8 +29,8 @@ public class Enemy extends Entity{
     private int listPos = 0;
     private Point currentPos;
     List<Point> path;
-    public Enemy(TextureModel model, Vector3f position, float rotx, float roty, float rotz, float scale, List<Point> path) {
-        super(model, position, rotx, roty, rotz, scale);
+    public Enemy(TextureModel model, Vector3f position, float rotx, float roty, float rotz, float scale, float furthestPoint,List<Point> path) {
+        super(model, position, rotx, roty, rotz, scale, furthestPoint);
         this.path = path;
         currentPos = path.get(0);
         
